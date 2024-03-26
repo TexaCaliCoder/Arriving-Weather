@@ -1,4 +1,5 @@
-
+// External Dependencies
+import moment from "moment-timezone";
 
 export interface SimplifiedForecast {
     temperature: number;
@@ -25,11 +26,11 @@ interface WeatherApiResponse {
 }
 
 export const getTomorrow = () => {
-    const today = new Date();
-    const tomorrow = new Date(today);
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    return tomorrow.toLocaleDateString('en-US', {weekday: 'long'});
+    // this ensures that the date is in the Eastern Time Zone (ashland) and it will handle daylight savings time
+    const tomorrow = moment().tz('America/New_York').add(1, 'days');
+    return tomorrow.format('dddd');
 }
+
 
 
 export const extractSimplifiedNextDayForecast = (data: WeatherApiResponse) => {
@@ -57,9 +58,7 @@ export const extractSimplifiedNextDayForecast = (data: WeatherApiResponse) => {
 }
 
 const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    const month = date.toLocaleString('default', { month: 'long' });
-    const day = date.getDate();
-    return `${month} ${day}`;
+    const date = moment(dateString).tz('America/New_York');
+    return date.format('MMMM D');
 }
 
