@@ -2,7 +2,6 @@
 
 export interface SimplifiedForecast {
     temperature: number;
-    temperatureUnit: string;
     name: string;
     date: string; 
     shortForecast: string;
@@ -17,7 +16,6 @@ interface WeatherApiResponse {
             name: string;
             startTime: string;
             temperature: number;
-            temperatureUnit: string;
             shortForecast: string;
             detailedForecast: string;
             windSpeed: string;
@@ -26,24 +24,33 @@ interface WeatherApiResponse {
     };
 }
 
+export const getTomorrow = () => {
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    return tomorrow.toLocaleDateString('en-US', {weekday: 'long'});
+}
+
 
 export const extractSimplifiedNextDayForecast = (data: WeatherApiResponse) => {
-    const period = data?.properties?.periods[1]; // Safely accessing the next day's forecast
 
-    if (!period) {
+    const day = getTomorrow()
+    const tomorrow = data?.properties?.periods.find(period => period.name === day);
+   console.log('tomorrow', tomorrow)
+
+    if (!tomorrow) {
         console.error('Forecast data is missing or not in the expected format.');
         return null;
     }
 
     const nextDayForecast: SimplifiedForecast = {
-        temperature: period.temperature,
-        temperatureUnit: period.temperatureUnit,
-        name: period.name,
-        date: formatDate(period.startTime),
-        shortForecast: period.shortForecast,
-        detailedForecast: period.detailedForecast,
-        windSpeed: period.windSpeed,
-        windDirection: period.windDirection,
+        temperature: tomorrow.temperature,
+        name: tomorrow.name,
+        date: formatDate(tomorrow.startTime),
+        shortForecast: tomorrow.shortForecast,
+        detailedForecast: tomorrow.detailedForecast,
+        windSpeed: tomorrow.windSpeed,
+        windDirection: tomorrow.windDirection,
     };
 
     return nextDayForecast;
