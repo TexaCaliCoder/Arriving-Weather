@@ -1,7 +1,49 @@
-import React from 'react'
+// External Dependencies
+import React from "react";
+import { styled } from "@mui/material/styles";
+import Typography from "@mui/material/Typography";
 
-const RightColumn: React.FC = () => (
-    <div>RightColumn</div>
+// Local Dependencies
+import { useWeather } from "../context/WeatherContext";
+
+// Local Variables
+const StyledWrapper = styled("div")({
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "space-around",
+  alignItems: "center",
+  height: "50%",
+  width: "45%",
+  marginTop: "100px",
+  ".top": {
+    borderBottom: "1px solid black",
+  },
+
+  "@media (max-width: 700px)": {
+    width: "100%",
+    marginTop: "20px",
+    justifyContent: "center",
+    ".top": {
+      marginBottom: "20px",
+    },
+  },
+});
+const RightColumn: React.FC = () => {
+  const { weatherData } = useWeather();
+  return (
+    <StyledWrapper>
+      <div className="top">
+        <Typography variant="h4" textAlign="center">
+          Wind Conditions
+        </Typography>
+      </div>
+      <div className="bottom">
+        <Typography variant="h4" textAlign="center">
+          {weatherData?.windDirection} at {weatherData?.windSpeed}
+        </Typography>
+      </div>
+    </StyledWrapper>
   );
-  
-  export default RightColumn
+};
+
+export default RightColumn;

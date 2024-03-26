@@ -1,10 +1,12 @@
 // External Dependencies
 import React from "react";
-import { styled } from "@mui/material/styles";
+import { CssBaseline } from "@mui/material";
+import { styled, ThemeProvider } from "@mui/material/styles";
 import { WeatherProvider } from "./components/context/WeatherContext";
 
 // Internal Dependencies
 import Home from "./components/home";
+import { theme } from "./theme";
 
 // Local Variables
 const StyledAppWrapper = styled("div")(() => ({
@@ -19,11 +21,14 @@ const StyledAppWrapper = styled("div")(() => ({
 
 const App: React.FC = () => {
   return (
-    <WeatherProvider>
-      <StyledAppWrapper>
-        <Home />
-      </StyledAppWrapper>
-    </WeatherProvider>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <WeatherProvider>
+        <StyledAppWrapper>
+          <Home />
+        </StyledAppWrapper>
+      </WeatherProvider>
+    </ThemeProvider>
   );
 };
 
