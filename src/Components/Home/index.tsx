@@ -1,6 +1,5 @@
 // External Dependencies
 import React from "react";
-import Divider from "@mui/material/Divider";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 import { Typography } from "@mui/material";
