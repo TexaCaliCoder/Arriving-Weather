@@ -53,7 +53,7 @@ const Home: React.FC = () => {
     <CenteredContainer elevation={12}>
       <div className="header">
         <Typography variant="h4" textAlign="center">
-          First Arriving HQ Weather Dashboard
+          Arriving First HQ Weather Dashboard
         </Typography>
         <Typography variant="h5" textAlign="center">
           {weatherData?.name} - {weatherData?.date}
