@@ -1,47 +1,34 @@
 // External Dependencies
 import React from "react";
 import { styled } from "@mui/material/styles";
-import Typography from "@mui/material/Typography";
 
 // Local Dependencies
 import { useWeather } from "../context/WeatherContext";
+import DisplayBox from "./DisplayBox";
 
 // Local Variables
 const StyledWrapper = styled("div")({
   display: "flex",
   flexDirection: "column",
-  justifyContent: "space-around",
+  justifyContent: "space-evenly",
   alignItems: "center",
-  height: "50%",
-  width: "45%",
-  marginTop: "100px",
-  ".top": {
-    borderBottom: "1px solid black",
-  },
-
-  "@media (max-width: 700px)": {
+  height: "100%",
+  width: "50%",
+  "@media (max-width: 800px)": {
     width: "100%",
-    marginTop: "20px",
     justifyContent: "center",
-    ".top": {
-      marginBottom: "20px",
-    },
   },
 });
+
 const RightColumn: React.FC = () => {
   const { weatherData } = useWeather();
+  const windDirection = weatherData?.windDirection ?? '';
+  const windSpeed = weatherData?.windSpeed ?? '';
+  const rain = weatherData?.rain ?? '';
   return (
     <StyledWrapper>
-      <div className="top">
-        <Typography variant="h4" textAlign="center">
-          Wind Conditions
-        </Typography>
-      </div>
-      <div className="bottom">
-        <Typography variant="h4" textAlign="center">
-          {weatherData?.windDirection} at {weatherData?.windSpeed}
-        </Typography>
-      </div>
+      <DisplayBox title="Wind Conditions" text={`${windDirection} at ${windSpeed}`} />
+      {rain && <DisplayBox title="Chance of Rain" text={`${rain}%`} />}
     </StyledWrapper>
   );
 };
