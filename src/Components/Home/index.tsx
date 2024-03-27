@@ -5,9 +5,9 @@ import { styled } from "@mui/material/styles";
 import { Typography } from "@mui/material";
 
 // Internal Dependencies
-import LeftColumn from "../dashboard/LeftColumn";
-import RightColumn from "../dashboard/RightColumn";
-import { useWeather } from "../context/WeatherContext";
+import LeftColumn from "../Dashboard/LeftColumn";
+import RightColumn from "../Dashboard/RightColumn";
+import { useWeather } from "../Context/WeatherContext";
 
 // Local Variables
 const CenteredContainer = styled(Paper)({

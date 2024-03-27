@@ -2,10 +2,10 @@
 import React from "react";
 import { CssBaseline } from "@mui/material";
 import { styled, ThemeProvider } from "@mui/material/styles";
-import { WeatherProvider } from "./components/context/WeatherContext";
+import { WeatherProvider } from "./Components/Context/WeatherContext";
 
 // Internal Dependencies
-import Home from "./components/home";
+import Home from "./Components/Home";
 import { theme } from "./theme";
 
 // Local Variables

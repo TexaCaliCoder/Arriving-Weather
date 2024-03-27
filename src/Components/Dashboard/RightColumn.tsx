@@ -3,40 +3,34 @@ import React from "react";
 import { styled } from "@mui/material/styles";
 
 // Local Dependencies
-import { useWeather } from "../context/WeatherContext";
+import { useWeather } from "../Context/WeatherContext";
 import DisplayBox from "./DisplayBox";
 
 // Local Variables
 const StyledWrapper = styled("div")({
   display: "flex",
   flexDirection: "column",
-  justifyContent: "center",
+  justifyContent: "space-evenly",
   alignItems: "center",
   height: "100%",
   width: "50%",
-
   "@media (max-width: 800px)": {
     width: "100%",
-    marginTop: "20px",
     justifyContent: "center",
-    ".top": {
-      marginBottom: "20px",
-    },
   },
 });
 
-const LeftColumn: React.FC = () => {
+const RightColumn: React.FC = () => {
   const { weatherData } = useWeather();
-  const temperature = weatherData?.temperature ?? '';
+  const windDirection = weatherData?.windDirection ?? '';
+  const windSpeed = weatherData?.windSpeed ?? '';
+  const rain = weatherData?.rain ?? '';
   return (
     <StyledWrapper>
-    <DisplayBox 
-      title="Temperature" 
-      text={`${temperature}°`} 
-    />
-  </StyledWrapper>
-
+      <DisplayBox title="Wind Conditions" text={`${windDirection} at ${windSpeed}`} />
+      {rain && <DisplayBox title="Chance of Rain" text={`${rain}%`} />}
+    </StyledWrapper>
   );
 };
 
-export default LeftColumn;
+export default RightColumn;
