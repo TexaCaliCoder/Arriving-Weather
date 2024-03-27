@@ -41,7 +41,6 @@ export const extractSimplifiedNextDayForecast = (data: WeatherApiResponse) => {
 
     const day = getTomorrow()
     const tomorrow = data?.properties?.periods.find(period => period.name === day);
-    console.log('tomorrow', tomorrow)
 
     if (!tomorrow) {
         console.error('Forecast data is missing or not in the expected format.');
