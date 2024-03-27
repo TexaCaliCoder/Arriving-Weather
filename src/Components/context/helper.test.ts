@@ -12,7 +12,11 @@ const mockApiResponse = {
                 shortForecast: 'Sunny',
                 detailedForecast: 'Clear sky with temperatures rising.',
                 windSpeed: '5 mph',
-                windDirection: 'N'
+                windDirection: 'N',
+                probabilityOfPrecipitation: {
+                    unitCode: "wmoUnit:percent",
+                    value: null
+                },
             },
             {
                 name: 'Monday',
@@ -21,7 +25,11 @@ const mockApiResponse = {
                 shortForecast: 'Partly cloudy',
                 detailedForecast: 'Partly cloudy with a chance of rain in the afternoon.',
                 windSpeed: '10 mph',
-                windDirection: 'NE'
+                windDirection: 'NE',
+                probabilityOfPrecipitation: {
+                    unitCode: "wmoUnit:percent",
+                    value: 25,
+                },
             }
         ]
     }
@@ -44,7 +52,8 @@ describe('extractSimplifiedNextDayForecast', () => {
             shortForecast: 'Partly cloudy',
             detailedForecast: 'Partly cloudy with a chance of rain in the afternoon.',
             windSpeed: '10 mph',
-            windDirection: 'NE'
+            windDirection: 'NE', 
+            rain: 25,
         };
 
         const result = extractSimplifiedNextDayForecast(mockApiResponse);

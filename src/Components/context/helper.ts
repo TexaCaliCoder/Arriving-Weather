@@ -4,11 +4,12 @@ import moment from "moment-timezone";
 export interface SimplifiedForecast {
     temperature: number;
     name: string;
-    date: string; 
+    date: string;
     shortForecast: string;
     detailedForecast: string;
     windSpeed: string;
     windDirection: string;
+    rain: number | null;
 }
 
 interface WeatherApiResponse {
@@ -21,6 +22,9 @@ interface WeatherApiResponse {
             detailedForecast: string;
             windSpeed: string;
             windDirection: string;
+            probabilityOfPrecipitation: {
+                value: number | null
+            };
         }>;
     };
 }
@@ -37,7 +41,7 @@ export const extractSimplifiedNextDayForecast = (data: WeatherApiResponse) => {
 
     const day = getTomorrow()
     const tomorrow = data?.properties?.periods.find(period => period.name === day);
-   console.log('tomorrow', tomorrow)
+    console.log('tomorrow', tomorrow)
 
     if (!tomorrow) {
         console.error('Forecast data is missing or not in the expected format.');
@@ -52,6 +56,7 @@ export const extractSimplifiedNextDayForecast = (data: WeatherApiResponse) => {
         detailedForecast: tomorrow.detailedForecast,
         windSpeed: tomorrow.windSpeed,
         windDirection: tomorrow.windDirection,
+        rain: tomorrow.probabilityOfPrecipitation.value ? tomorrow.probabilityOfPrecipitation.value : null,
     };
 
     return nextDayForecast;
